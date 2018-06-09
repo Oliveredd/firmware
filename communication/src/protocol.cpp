@@ -546,6 +546,11 @@ system_tick_t Protocol::ChunkedTransferCallbacks::millis()
 	return callbacks->millis();
 }
 
+cellular_result_t Protocol::ChunkedTransferCallbacks::cellular_device_info(CellularDevice* device, void* reserved)
+{
+	return callbacks->cellular_device_info(device, reserved);
+}
+
 int Protocol::get_describe_data(spark_protocol_describe_data* data, void* reserved)
 {
 	data->maximum_size = 768;  // a conservative guess based on dtls and lightssl encryption overhead and the CoAP data

@@ -33,6 +33,18 @@ ProtocolError ChunkedTransfer::handle_update_begin(
     if (actual_len >= 20 && queue[7] == 0xFF)
     {
         flags = decode_uint8(queue + 8);
+
+#if PLATFORM_ID == 10
+        CellularDevice device;
+        memset(&device, 0, sizeof(device));
+        device.size = sizeof(device);
+        callbacks->cellular_device_info(&device, NULL);
+        if (device.dev == 8/*DEV_SARA_R410*/) {
+            DEBUG("Device is SARA_R410, disabling Fast OTA!");
+            flags &= ~(1<<0); // zero out the Fast OTA flag bit (Fast OTA disabled)
+        }
+#endif // PLATFORM_ID == 10
+
         file.chunk_size = decode_uint16(queue + 9);
         file.file_length = decode_uint32(queue + 11);
         file.store = FileTransfer::Store::Enum(decode_uint8(queue + 15));

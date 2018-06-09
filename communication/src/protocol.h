@@ -88,6 +88,8 @@ class Protocol
 
 		  virtual system_tick_t millis();
 
+		  virtual cellular_result_t cellular_device_info(CellularDevice* device, void* reserved);
+
 	} chunkedTransferCallbacks;
 
 	/**

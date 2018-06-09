@@ -31,6 +31,7 @@
 #include "protocol_selector.h"
 #include "protocol_defs.h"
 #include "completion_handler.h"
+#include "cellular_hal.h"
 
 
 #ifdef	__cplusplus
@@ -116,9 +117,16 @@ struct SparkCallbacks
 	int (*restore)(void* data, size_t max_length, uint8_t type, void* reserved);
 
 	// size == 52
+
+  /**
+   * Returns cellular device info
+   */
+  cellular_result_t (*cellular_device_info)(CellularDevice* device, void* reserved);
+
+  // size == 56
 };
 
-STATIC_ASSERT(SparkCallbacks_size, sizeof(SparkCallbacks)==(sizeof(void*)*13));
+STATIC_ASSERT(SparkCallbacks_size, sizeof(SparkCallbacks)==(sizeof(void*)*14));
 
 /**
  * Application-supplied callbacks. (Deliberately distinct from the system-supplied

@@ -665,6 +665,7 @@ void Spark_Protocol_Init(void)
             callbacks.transport_context = &cloud_endpoint;
             callbacks.save = Spark_Save;
             callbacks.restore = Spark_Restore;
+            callbacks.cellular_device_info = cellular_device_info;
         }
         else
 #endif

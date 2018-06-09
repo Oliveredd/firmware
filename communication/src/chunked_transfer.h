@@ -24,6 +24,7 @@
 #include "message_channel.h"
 #include "system_tick_hal.h"
 #include "messages.h"
+#include "cellular_hal.h"
 
 namespace particle
 {
@@ -64,6 +65,11 @@ public:
 		  virtual uint32_t calculate_crc(const unsigned char *buf, uint32_t buflen)=0;
 
 		  virtual system_tick_t millis()=0;
+
+		  /**
+		   * Returns cellular device info
+		   */
+		  virtual cellular_result_t cellular_device_info(CellularDevice* device, void* reserved)=0;
 	};
 
 private:
